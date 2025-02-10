@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        background: linear-gradient(45deg, #ff6b6b, #ffd3d3);
+        font-family: "Arial", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 800px;
+      }
+
+      h1 {
+        color: #ff4081;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      .greeting {
+        font-size: 1.2em;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      .slideshow {
+        position: relative;
+        margin: 20px 0;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+
+      .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .slide.active {
+        opacity: 1;
+      }
+
+      .slide img {
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: 10px;
+      }
+
+      .slide-description {
+        margin-top: 15px;
+        color: #666;
+        font-style: italic;
+      }
+
+      .controls {
+        margin-top: 20px;
+      }
+
+      button {
+        background: #ff4081;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        margin: 0 10px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background: #f50057;
+      }
+
+      .music-control {
+        margin-top: 20px;
+      }
+
+      #audioPlayer {
+        display: none;
+      }
+
+      .heart {
+        position: fixed;
+        font-size: 20px;
+        color: #ff4081;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+        100% {
+          transform: translateY(0) rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>❤️ Happy Valentine's Day! ❤️</h1>
+
+      <div class="greeting">
+        <p>Hi Dadang,</p>
+        <p>I'm sorry for being too cheezy...</p>
+        <p>That's what you get when you date an IT girl. :></p>
+        <p>
+          I am so lucky to have you,<br />
+          Thank you for taking care of our girls
+        </p>
+      </div>
+
+      <div class="slideshow">
+        <div class="slide active">
+          <img src="./img/33.jpg" alt="fav pic" />
+          <p class="slide-description">
+            This might be your favorite photos of me. :>
+          </p>
+        </div>
+        <div class="slide">
+          <img src="./img/44.jpg" alt="Family" />
+          <p class="slide-description">Our little family, I love you so much</p>
+        </div>
+        <div class="slide">
+          <img src="./img/11.jpg" alt="With our girls" />
+          <p class="slide-description">
+            You're the best dad to our beautiful girls
+          </p>
+        </div>
+        <div class="slide">
+          <img src="./img/1.jpg" alt="in mnl" />
+          <p class="slide-description">
+            I miss our travel, I hope we can do it again soon.
+          </p>
+        </div>
+        <div class="slide">
+          <img src="./img/2.jpg" alt="in mnl" />
+          <p class="slide-description">You look so cool in here</p>
+        </div>
+
+        <div class="slide">
+          <img src="./img/3.jpg" alt="in mnl" />
+          <p class="slide-description">I look pretty here :></p>
+        </div>
+
+        <div class="slide">
+          <img src="./img/4.jpg" alt="in mnl" />
+          <p class="slide-description">we are crazy film lover</p>
+        </div>
+
+        <div class="slide">
+          <img src="./img/5.jpg" alt="in mnl" />
+          <p class="slide-description">
+            Kapoy kay ko dri bagtas huhu, anyway i love the fishes sa ocean park
+            XD
+          </p>
+        </div>
+        <div class="slide">
+          <img src="./img/7.jpg" alt="in mnl" />
+          <p class="slide-description">Of course our favorite band, CAS!</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
+      </div>
+
+      <div class="music-control">
+        <button onclick="toggleMusic()">Play/Pause Music</button>
+        <audio id="audioPlayer" loop>
+          <source src="./music/blue.mp3" type="audio/mp3" />
+        </audio>
+      </div>
+    </div>
+
+    <script>
+      let currentSlide = 0;
+      const slides = document.querySelectorAll(".slide");
+      const audioPlayer = document.getElementById("audioPlayer");
+
+      function showSlide(index) {
+        slides.forEach((slide) => slide.classList.remove("active"));
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add("active");
+      }
+
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+
+      function prevSlide() {
+        showSlide(currentSlide - 1);
+      }
+
+      function toggleMusic() {
+        if (audioPlayer.paused) {
+          audioPlayer.play();
+        } else {
+          audioPlayer.pause();
+        }
+      }
+
+      setInterval(nextSlide, 6000);
+
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+
+      setInterval(createHeart, 300);
+    </script>
+  </body>
+</html>
